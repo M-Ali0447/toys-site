@@ -1,0 +1,843 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yumshoq O'yinchoqlar - O'yinchoqlar Do'koni</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #FF6B8B;
+            --secondary: #6A67CE;
+            --accent: #FFA62E;
+            --light: #FFF5F7;
+            --dark: #3D3B8E;
+            --success: #4ECB71;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Comic Neue', cursive, Arial, sans-serif;
+        }
+        
+        body {
+            background-color: var(--light);
+            color: #333;
+            overflow-x: hidden;
+        }
+        
+        /* Header styles */
+        header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            padding: 1rem 2rem;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            animation: slideDown 0.7s ease;
+        }
+        
+        @keyframes slideDown {
+            from { transform: translateY(-100%); }
+            to { transform: translateY(0); }
+        }
+        
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            animation: bounce 2s infinite;
+        }
+        
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        .logo i {
+            font-size: 2.5rem;
+            margin-right: 10px;
+            color: var(--accent);
+        }
+        
+        .logo h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            text-shadow: 2px 2px 0px rgba(0, 0, 0, 0.1);
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 2rem;
+        }
+        
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+            padding: 0.5rem 0;
+        }
+        
+        nav ul li a:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 3px;
+            bottom: 0;
+            left: 0;
+            background-color: var(--accent);
+            transition: width 0.3s ease;
+            border-radius: 3px;
+        }
+        
+        nav ul li a:hover:after {
+            width: 100%;
+        }
+        
+        /* Hero section */
+        .hero {
+            background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url('https://images.unsplash.com/photo-1534452203293-494d7ddbf7e0?ixlib=rb-4.0.3&auto=format&fit=crop&w=1500&q=80');
+            background-size: cover;
+            background-position: center;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            padding: 0 1rem;
+            margin-top: 80px;
+            animation: fadeIn 1.5s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        .hero-content {
+            max-width: 800px;
+        }
+        
+        .hero h2 {
+            font-size: 4rem;
+            margin-bottom: 1.5rem;
+            text-shadow: 3px 3px 0px rgba(0, 0, 0, 0.2);
+            animation: slideUp 1s ease;
+        }
+        
+        @keyframes slideUp {
+            from { 
+                transform: translateY(50px);
+                opacity: 0;
+            }
+            to { 
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+        
+        .hero p {
+            font-size: 1.8rem;
+            margin-bottom: 2.5rem;
+            animation: slideUp 1.2s ease;
+        }
+        
+        .btn {
+            display: inline-block;
+            background-color: var(--accent);
+            color: white;
+            padding: 1.2rem 2.5rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+            animation: slideUp 1.4s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .btn:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 15px 25px rgba(0, 0, 0, 0.3);
+        }
+        
+        /* Products section */
+        .products {
+            padding: 6rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 4rem;
+            position: relative;
+        }
+        
+        .section-title h2 {
+            font-size: 3rem;
+            color: var(--dark);
+            display: inline-block;
+        }
+        
+        .section-title h2:after {
+            content: '';
+            position: absolute;
+            width: 100px;
+            height: 5px;
+            background-color: var(--accent);
+            bottom: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 3px;
+        }
+        
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2.5rem;
+        }
+        
+        .product-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            transition: all 0.4s ease;
+            animation: fadeIn 1s ease;
+            position: relative;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-15px) rotate(2deg);
+            box-shadow: 0 20px 35px rgba(0, 0, 0, 0.2);
+        }
+        
+        .product-card:before {
+            content: 'YANGI';
+            position: absolute;
+            top: 15px;
+            right: -30px;
+            background: var(--accent);
+            color: white;
+            padding: 5px 30px;
+            font-weight: 700;
+            transform: rotate(45deg);
+            z-index: 1;
+        }
+        
+        .product-img {
+            height: 250px;
+            overflow: hidden;
+        }
+        
+        .product-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.7s ease;
+        }
+        
+        .product-card:hover .product-img img {
+            transform: scale(1.2) rotate(5deg);
+        }
+        
+        .product-info {
+            padding: 2rem;
+            text-align: center;
+        }
+        
+        .product-info h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            color: var(--dark);
+        }
+        
+        .product-info p {
+            color: #666;
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+        
+        .product-price {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+        }
+        
+        /* Categories section */
+        .categories {
+            background: linear-gradient(135deg, var(--secondary) 0%, var(--primary) 100%);
+            padding: 6rem 2rem;
+            color: white;
+        }
+        
+        .categories-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 2.5rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .category-card {
+            text-align: center;
+            padding: 2.5rem 2rem;
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 15px;
+            backdrop-filter: blur(5px);
+            transition: all 0.4s ease;
+            animation: fadeIn 1s ease;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .category-card:hover {
+            transform: translateY(-10px) scale(1.05);
+            background: rgba(255, 255, 255, 0.25);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+        
+        .category-card i {
+            font-size: 4rem;
+            margin-bottom: 1.5rem;
+            color: var(--accent);
+            text-shadow: 2px 2px 0px rgba(0, 0, 0, 0.1);
+        }
+        
+        .category-card h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+        }
+        
+        /* Testimonials section */
+        .testimonials {
+            padding: 6rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 2.5rem;
+        }
+        
+        .testimonial-card {
+            background: white;
+            border-radius: 15px;
+            padding: 2.5rem;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            transition: all 0.4s ease;
+            animation: fadeIn 1s ease;
+            position: relative;
+        }
+        
+        .testimonial-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+        
+        .testimonial-card:before {
+            content: '"';
+            font-size: 8rem;
+            position: absolute;
+            top: -20px;
+            left: 20px;
+            color: rgba(0, 0, 0, 0.05);
+            font-family: Arial, sans-serif;
+        }
+        
+        .testimonial-text {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 2rem;
+            color: #555;
+        }
+        
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+        }
+        
+        .testimonial-author img {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-right: 1rem;
+            border: 3px solid var(--primary);
+        }
+        
+        .author-info h4 {
+            font-size: 1.2rem;
+            color: var(--dark);
+        }
+        
+        .author-info p {
+            color: var(--primary);
+        }
+        
+        /* Newsletter section */
+        .newsletter {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            padding: 5rem 2rem;
+            text-align: center;
+            color: white;
+        }
+        
+        .newsletter-content {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .newsletter h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .newsletter p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .newsletter-form {
+            display: flex;
+            justify-content: center;
+            margin-top: 2rem;
+        }
+        
+        .newsletter-form input {
+            padding: 1rem 1.5rem;
+            border: none;
+            border-radius: 50px 0 0 50px;
+            width: 300px;
+            font-size: 1rem;
+            outline: none;
+        }
+        
+        .newsletter-form button {
+            background: var(--accent);
+            color: white;
+            border: none;
+            border-radius: 0 50px 50px 0;
+            padding: 1rem 2rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .newsletter-form button:hover {
+            background: var(--dark);
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 4rem 2rem;
+            text-align: center;
+        }
+        
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            text-align: left;
+        }
+        
+        .footer-section h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .footer-section h3:after {
+            content: '';
+            position: absolute;
+            width: 60px;
+            height: 3px;
+            background-color: var(--accent);
+            bottom: -10px;
+            left: 0;
+        }
+        
+        .footer-section p, .footer-section li {
+            margin-bottom: 1rem;
+            color: #ccc;
+            line-height: 1.6;
+        }
+        
+        .footer-section ul {
+            list-style: none;
+        }
+        
+        .footer-section a {
+            color: #ccc;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .footer-section a:hover {
+            color: var(--accent);
+        }
+        
+        .social-icons {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+        
+        .social-icons a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 45px;
+            height: 45px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+        
+        .social-icons a:hover {
+            background: var(--accent);
+            transform: translateY(-5px);
+        }
+        
+        .copyright {
+            margin-top: 4rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #ccc;
+        }
+        
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: column;
+            }
+            
+            nav ul {
+                margin-top: 1.5rem;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            nav ul li {
+                margin: 0.5rem 1rem;
+            }
+            
+            .hero h2 {
+                font-size: 2.8rem;
+            }
+            
+            .hero p {
+                font-size: 1.4rem;
+            }
+            
+            .newsletter-form {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .newsletter-form input {
+                border-radius: 50px;
+                margin-bottom: 1rem;
+                width: 100%;
+                max-width: 300px;
+            }
+            
+            .newsletter-form button {
+                border-radius: 50px;
+                width: 100%;
+                max-width: 300px;
+            }
+        }
+        
+        /* Floating animations */
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+            100% { transform: translateY(0px); }
+        }
+        
+        .float {
+            animation: float 5s ease-in-out infinite;
+        }
+        
+        /* Additional decorative elements */
+        .decoration {
+            position: absolute;
+            z-index: -1;
+        }
+        
+        .circle-1 {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background: rgba(255, 107, 139, 0.1);
+            top: 10%;
+            left: 5%;
+            animation: float 8s ease-in-out infinite;
+        }
+        
+        .circle-2 {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background: rgba(106, 103, 206, 0.1);
+            bottom: 20%;
+            right: 5%;
+            animation: float 6s ease-in-out infinite;
+        }
+    </style>
+</head>
+<body>
+    <div class="decoration circle-1"></div>
+    <div class="decoration circle-2"></div>
+    
+    <!-- Header Section -->
+    <header>
+        <div class="header-container">
+            <div class="logo">
+                <i class="fas fa-cloud"></i>
+                <h1> O'yinchoqlar</h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#">Bosh Sahifa</a></li>
+                    <li><a href="#">O'yinchoqlar</a></li>
+                    <li><a href="#">Kategoriyalar</a></li>
+                    <li><a href="#">Biz Haqimizda</a></li>
+                    <li><a href="#">Aloqa</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h2>Yumshoq Sevimli Do'stlaringiz</h2>
+            <p>Bolalaringiz uchun eng sifatli va qulay o'yinchoqlar</p>
+            <a href="#" class="btn">O'yinchoqlarni Ko'rish</a>
+        </div>
+    </section>
+
+    <!-- Products Section -->
+    <section class="products">
+        <div class="section-title">
+            <h2>Mashhur O'yinchoqlar</h2>
+        </div>
+        <div class="product-grid">
+            <div class="product-card float">
+                <div class="product-img">
+                    <img src="Gemini_Generated_Image_au4avrau4avrau4a.png" alt="Ayiqcha">
+                </div>
+                <div class="product-info">
+                    <h3>Ayiqcha</h3>
+                    <p>Yumshoq, yoqimli hidi va suvda yuvish mumkin</p>
+                    <div class="product-price">85 000 so'm</div>
+                    <a href="#" class="btn">Sotib Olish</a>
+                </div>
+            </div>
+            
+            <div class="product-card float">
+                <div class="product-img">
+                    <img src="Generated Image September 09, 2025 - 6_19PM.png" alt="Quyoncha">
+                </div>
+                <div class="product-info">
+                    <h3>Quyoncha</h3>
+                    <p>Uzun quloqli, yumshoq va rang-barang</p>
+                    <div class="product-price">75 000 so'm</div>
+                    <a href="#" class="btn">Sotib Olish</a>
+                </div>
+            </div>
+            
+            <div class="product-card float">
+                <div class="product-img">
+                    <img src="Gemini_Generated_Image_e98zz6e98zz6e98z.png" alt="Kuchukcha">
+                </div>
+                <div class="product-info">
+                    <h3>Mushukcha</h3>
+                    <p>Yoqimli ko'rinish, yumshoq va chidamli</p>
+                    <div class="product-price">65 000 so'm</div>
+                    <a href="#" class="btn">Sotib Olish</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Categories Section -->
+    <section class="categories">
+        <div class="section-title">
+            <h2>Kategoriyalar</h2>
+        </div>
+        <div class="categories-grid">
+            <div class="category-card">
+                <i class="fas fa-bear"></i>
+                <h3>Hayvonchalar</h3>
+                <p>Turli xil hayvon shaklidagi o'yinchoqlar</p>
+            </div>
+            
+            <div class="category-card">
+                <i class="fas fa-robot"></i>
+                <h3>Qo'g'irchoqlar</h3>
+                <p>Qo'lda tikilgan an'anaviy qo'g'irchoqlar</p>
+            </div>
+            
+            <div class="category-card">
+                <i class="fas fa-cube"></i>
+                <h3>To'plar</h3>
+                <p>Yumshoq va xavfsiz o'yin to'plari</p>
+            </div>
+            
+            <div class="category-card">
+                <i class="fas fa-gift"></i>
+                <h3>To'plamlar</h3>
+                <p>O'yinchoq to'plamlari va sovg'a setlari</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="testimonials">
+        <div class="section-title">
+            <h2>Mijozlarimiz Fikrlari</h2>
+        </div>
+        <div class="testimonials-grid">
+            <div class="testimonial-card">
+                <p class="testimonial-text">O'g'lim uchun bu ayiqchani sotib oldim. Juda yumshoq va sifatli. Yuvishganda ham shakli o'zgarmadi. Rahmat!</p>
+                <div class="testimonial-author">
+                    <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80" alt="Mijoz">
+                    <div class="author-info">
+                        <h4>Dilnoza Xolmirzayeva</h4>
+                        <p>Toshkent</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="testimonial-card">
+                <p class="testimonial-text">Qizim quyonchani ko'rganida juda xursand bo'ldi. Hozir u bilan uxlashni ham istaydi. Rahmat sizga!</p>
+                <div class="testimonial-author">
+                    <img src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80" alt="Mijoz">
+                    <div class="author-info">
+                        <h4>Farhod Ismoilov</h4>
+                        <p>Samarqand</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="testimonial-card">
+                <p class="testimonial-text">Sotib olgan mushukcham juda yoqimli va yumshoq. Yetkazib berish ham tez bo'ldi. Katta rahmat!</p>
+                <div class="testimonial-author">
+                    <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80" alt="Mijoz">
+                    <div class="author-info">
+                        <h4>Nigora Xasanova</h4>
+                        <p>Buxoro</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter Section -->
+    <section class="newsletter">
+        <div class="newsletter-content">
+            <h2>Yangi O'yinchoqlardan Xabardor Bo'ling</h2>
+            <p>Yangi kelgan o'yinchoqlar va aksiyalar haqida birinchi bo'lib xabardor bo'lish uchun obuna bo'ling</p>
+            <div class="newsletter-form">
+                <input type="email" placeholder="Email manzilingiz">
+                <button>Obuna Bo'lish</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Sevimli O'yinchoqlar</h3>
+                <p>Bolalaringiz uchun eng sifatli va qulay o'yinchoqlar faqat bizning do'konimizda.</p>
+                <div class="social-icons">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-telegram"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Manzilimiz</h3>
+                <p><i class="fas fa-map-marker-alt"></i> Toshkent shahar, Mirzo Ulug'bek tumani</p>
+                <p><i class="fas fa-phone"></i> +998 71 234 56 78</p>
+                <p><i class="fas fa-envelope"></i> info@sevimlioyinchoqlar.uz</p>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Foydali Havolalar</h3>
+                <ul>
+                    <li><a href="#">Bosh Sahifa</a></li>
+                    <li><a href="#">O'yinchoqlar</a></li>
+                    <li><a href="#">Kategoriyalar</a></li>
+                    <li><a href="#">Biz Haqimizda</a></li>
+                    <li><a href="#">Aloqa</a></li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="copyright">
+            <p>&copy; 2023 Sevimli O'yinchoqlar. Barcha huquqlar himoyalangan.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Simple animations on scroll
+        document.addEventListener('DOMContentLoaded', function() {
+            const animatedElements = document.querySelectorAll('.product-card, .category-card, .testimonial-card');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.animation = 'fadeIn 1s ease forwards';
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, {
+                threshold: 0.1
+            });
+            
+            animatedElements.forEach(element => {
+                observer.observe(element);
+            });
+            
+            // Add floating animation to elements with the float class
+            const floatElements = document.querySelectorAll('.float');
+            floatElements.forEach((el, index) => {
+                el.style.animationDelay = `${index * 0.2}s`;
+            });
+        });
+    </script>
+</body>
+</html>
